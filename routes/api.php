@@ -3,6 +3,7 @@ use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/health', function(){
     try {
@@ -24,3 +25,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('tickets', TicketController::class);
 });
 
+Route::middleware('auth:api')->group(function () {
+    Route::get('tickets/{ticket}/comments', [CommentController::class, 'index']);
+    Route::post('tickets/{ticket}/comments', [CommentController::class, 'store']);
+});
