@@ -4,7 +4,7 @@ This is a **Support Ticket System** built with **Laravel (Backend)** and **React
 
 ---
 
-## **Table of Contents**
+## Table of Contents
 
 - [Features](#features)
 - [System Requirements](#system-requirements)
@@ -21,7 +21,7 @@ This is a **Support Ticket System** built with **Laravel (Backend)** and **React
 
 ---
 
-## **Features**
+## Features
 
 - User registration & login (Customer & Admin)
 - Ticket management (Create, View, Update, Delete)
@@ -32,21 +32,21 @@ This is a **Support Ticket System** built with **Laravel (Backend)** and **React
 
 ---
 
-## **System Requirements**
+## System Requirements
 
 - PHP >= 8.1
 - Composer
 - Node.js >= 18.x
 - npm or yarn
-- MySQL or other supported DB
+- MySQL or other supported database
 - Redis (optional, for caching/broadcasting)
 - Pusher account (for real-time chat)
 
 ---
 
-## **Installation**
+## Installation
 
-### **Backend (Laravel)**
+### Backend (Laravel)
 
 1. Clone the repository:
 ```bash
@@ -54,18 +54,15 @@ git clone <your-backend-repo-url>
 cd <your-backend-repo-folder>
 Install dependencies:
 
-bash
-Copy code
+~bash
 composer install
 Copy .env file and configure environment variables:
 
-bash
-Copy code
+~bash
 cp .env.example .env
 Configure .env:
 
-env
-Copy code
+.env
 APP_NAME=SupportTicket
 APP_ENV=local
 APP_KEY=base64:GENERATE_KEY
@@ -86,45 +83,19 @@ PUSHER_APP_SECRET=your-pusher-app-secret
 PUSHER_APP_CLUSTER=mt1
 Generate application key:
 
-bash
-Copy code
+~bash
 php artisan key:generate
 Run migrations:
 
-bash
-Copy code
+~bash
 php artisan migrate
 (Optional) Seed the database:
 
-bash
-Copy code
+~bash
 php artisan db:seed
 Start the Laravel server:
 
-bash
-Copy code
+~bash
 php artisan serve
-API is available at https://support-ticket-api.shishirchowdhury.com/.
 
-API Endpoints
-Authentication
-
-Register: POST /api/register
-
-Login: POST /api/login
-
-Tickets
-
-Create Ticket: POST /api/tickets (with Authorization header)
-
-Get Ticket Details: GET /api/tickets/{id}
-
-List Tickets: GET /api/tickets
-
-Comments / Chat
-
-Get Comments: GET /api/tickets/{ticket_id}/comments
-
-Add Comment: POST /api/tickets/{ticket_id}/comments
-
-Real-time updates via Pusher channel: ticket.{id}
+The API is available at https://support-ticket-api.shishirchowdhury.com
