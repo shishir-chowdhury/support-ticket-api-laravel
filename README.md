@@ -1,61 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Support Ticket System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a **Support Ticket System** built with **Laravel (Backend)** and **React (Frontend)**. It allows users (Customers) to create tickets, and Admins to manage tickets. It also supports **live chat** on tickets using **Pusher & Laravel Echo**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## **Table of Contents**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Features](#features)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+    - [Backend (Laravel)](#backend-laravel)
+    - [Frontend (React)](#frontend-react)
+- [API Documentation](#api-documentation)
+    - [Authentication](#authentication)
+    - [Tickets](#tickets)
+    - [Comments](#comments)
+    - [Broadcasting](#broadcasting)
+- [Environment Variables](#environment-variables)
+- [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## **Features**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- User registration & login (Customer & Admin)
+- Ticket management (Create, View, Update, Delete)
+- Comment system on tickets
+- Live chat with Pusher & Laravel Echo
+- File attachments in tickets
+- Role-based access control
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## **System Requirements**
 
-## Laravel Sponsors
+- PHP >= 8.1
+- Composer
+- Node.js >= 18.x
+- npm or yarn
+- MySQL or other supported DB
+- Redis (optional, for caching/broadcasting)
+- Pusher account (for real-time chat)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## **Installation**
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### **Backend (Laravel)**
 
-## Contributing
+1. Clone the repository:
+```bash
+git clone <your-backend-repo-url>
+cd <your-backend-repo-folder>
+Install dependencies:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+bash
+Copy code
+composer install
+Copy .env file and configure environment variables:
 
-## Code of Conduct
+bash
+Copy code
+cp .env.example .env
+Configure .env:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+env
+Copy code
+APP_NAME=SupportTicket
+APP_ENV=local
+APP_KEY=base64:GENERATE_KEY
+APP_DEBUG=true
+APP_URL=http://localhost
 
-## Security Vulnerabilities
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=support_ticket
+DB_USERNAME=root
+DB_PASSWORD=
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+BROADCAST_DRIVER=pusher
+PUSHER_APP_ID=your-pusher-app-id
+PUSHER_APP_KEY=your-pusher-app-key
+PUSHER_APP_SECRET=your-pusher-app-secret
+PUSHER_APP_CLUSTER=mt1
+Generate application key:
 
-## License
+bash
+Copy code
+php artisan key:generate
+Run migrations:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+bash
+Copy code
+php artisan migrate
+(Optional) Seed the database:
+
+bash
+Copy code
+php artisan db:seed
+Start the Laravel server:
+
+bash
+Copy code
+php artisan serve
+API is available at https://support-ticket-api.shishirchowdhury.com/.
+
+API Endpoints
+Authentication
+
+Register: POST /api/register
+
+Login: POST /api/login
+
+Tickets
+
+Create Ticket: POST /api/tickets (with Authorization header)
+
+Get Ticket Details: GET /api/tickets/{id}
+
+List Tickets: GET /api/tickets
+
+Comments / Chat
+
+Get Comments: GET /api/tickets/{ticket_id}/comments
+
+Add Comment: POST /api/tickets/{ticket_id}/comments
+
+Real-time updates via Pusher channel: ticket.{id}
