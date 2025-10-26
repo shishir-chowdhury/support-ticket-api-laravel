@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Broadcast;
 
 Route::get('/health', function(){
     try {
@@ -28,4 +29,8 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::get('tickets/{ticket}/comments', [CommentController::class, 'index']);
     Route::post('tickets/{ticket}/comments', [CommentController::class, 'store']);
+});
+
+Route::middleware('auth:api')->post('/broadcasting/auth', function (Illuminate\Http\Request $request) {
+    return Broadcast::auth($request);
 });
