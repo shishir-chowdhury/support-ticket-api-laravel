@@ -99,3 +99,24 @@ Start the Laravel server:
 php artisan serve
 
 The API is available at https://support-ticket-api.shishirchowdhury.com
+
+## API Documentation
+
+## Authentication
+- Register: POST /api/register
+- Login: POST /api/login
+
+## Tickets
+- Create Ticket: POST /api/tickets (Authorization required)
+- Get Ticket Details: GET /api/tickets/{id}
+- List Tickets: GET /api/tickets
+
+## Comments
+- Get Comments: GET /api/tickets/{ticket_id}/comments
+- Add Comment: POST /api/tickets/{ticket_id}/comments
+- Real-time updates via Pusher channel: ticket.{id}
+
+## Broadcasting
+- Laravel Event: MessageSent broadcasts new comments
+- Channel: ticket.{id}
+- Private channels require authentication
