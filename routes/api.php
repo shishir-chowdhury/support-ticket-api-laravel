@@ -6,14 +6,30 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Broadcast;
 
-Route::get('/health', function(){
+Route::get('/health', function () {
+    $dbStatus = 'ok';
+    $dbName = null;
+
     try {
-        DB::connection()->getPdo();
-        return response()->json(['db'=>'ok']);
+        $dbName = DB::connection()->getDatabaseName();
+        DB::select('SELECT 1');
     } catch (\Exception $e) {
-        return response()->json(['db'=>'fail', 'error'=>$e->getMessage()]);
+        $dbStatus = 'error';
+        $dbName = $e->getMessage();
     }
+
+    return response()->json([
+        'status' => 'ok',
+        'app' => config('app.name'),
+        'environment' => config('app.env'),
+        'database' => [
+            'status' => $dbStatus,
+            'name' => $dbName,
+        ],
+        'timestamp' => now()->toIso8601String(),
+    ]);
 });
+
 Route::post('auth/register', [AuthController::class,'register']);
 Route::post('auth/login', [AuthController::class,'login']);
 
