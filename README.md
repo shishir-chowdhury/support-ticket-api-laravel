@@ -102,6 +102,9 @@ The API is available at https://support-ticket-api.shishirchowdhury.com
 
 ## API Documentation
 
+## Health APi
+- Health: GET api/health
+
 ## Authentication
 - Register: POST /api/register
 - Login: POST /api/login
